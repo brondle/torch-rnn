@@ -1,0 +1,26 @@
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+	<div class="babble-button">DISCOVER THE POWER OF BRAND</div>
+	<label> Temperature:</label>	<input value="5" min="1" max="10" type="number" class="temperature"></input>
+	<label> Length: </label><input min="20" max="500" type="number" value="200" class="length"></input>
+	<div class="babble-container">
+  </div>
+	<script>
+    $(".babble-button").click(function(event) {
+			$.get("http://localhost:3000/babble", {temp: $(".temperature").val()/10, output_length: $(".length").val() }, function(data) {
+				console.log('data: ', data);
+				$(".babble-container").empty();
+				$(".babble-container").append('<div class="babble-text">' + JSON.parse(data).output + '</div>');
+				$(".babble-container").append('<img src="imgs/success' + getRandomInt(1, 16) + '.jpg" />');
+				function getRandomInt(min, max) {
+				min = Math.ceil(min);
+				max = Math.floor(max);
+				return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+				}
+		  });
+		});
+	</script>
+</body>
